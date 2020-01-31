@@ -2,4 +2,6 @@
 
 Arquivo de testo teste
 
-Este é um repositório teste
+Este é um repositório testei
+
+Gostou do curso!
