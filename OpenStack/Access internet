@@ -1,0 +1,11 @@
+
+
+The VM to have access to the internet has to be created on the network """"""""""net_mgmt"""""""
+
+#################################################################
+
+---- After the VM created on the flat network, interface br-mgmt0 give the command iptables in the controller to route the internet. ---
+
+sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -t nat -A POSTROUTING -o ens160 -j MASQUERADE

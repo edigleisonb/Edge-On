@@ -1,0 +1,31 @@
+
+
+Required:
+Place the User Admin in Admin of the NFV group.
+Create the group rules in the NFV project.
+
+
+Create file admin-openrc
+__________________________________________
+
+export OS_PROJECT_DOMAIN_NAME=Default
+export OS_USER_DOMAIN_NAME=Default
+export OS_PROJECT_NAME=nfv
+export OS_USERNAME=admin
+export OS_PASSWORD=devstack
+export OS_AUTH_URL=http://1IP_SERVER:35357/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+__________________________________________
+
+
+Cretate VNF
+__________________________________________
+
+tacker vnf-create --vnfd-template Template_NFV.yaml edi-vnf
+tacker vnf-list
+
+
+
+
+

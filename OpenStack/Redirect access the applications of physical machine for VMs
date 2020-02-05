@@ -1,0 +1,16 @@
+
+############## Due to the lack of a floating IP to be associated with the VMs, it was necessary to redirect ports to access the applications. ###########
+
+Redirection of physical machine/controller ports to an application that is running on the VM.
+
+IP_Controller: 150.161.121.195
+IP_VM: 192.168.120.4
+
+modprobe iptable_nat
+iptables -t nat -A POSTROUTING -o ens160 -j MASQUERADE
+iptables -t nat -A PREROUTING -d 150.161.121.195 -p tcp --dport 11081 -j DNAT --to 192.168.120.4:2377
+iptables -t nat -A POSTROUTING -d 192.168.120.4 -p tcp --dport 2377 -j SNAT --to 150.161.121.195
+
+
+Every request that arrives at the controller's 150.161.121.195 port 11081 is redirected to the application that is running on the virtual machine 192.168.120.4 on the port 2377
+

@@ -1,0 +1,48 @@
+Starting cluster:
+docker swarm init --advertise-addr IP_Server
+
+Adding other nodes to the cluster, this command should be used on the slaves nodes
+docker swarm join --token SWMTKN-1-5yd1jmwm76til7flwxgd5267um10f5rb8exoonpfgcfrw7nihy-0n3cgc9vtb8jtspzs409irdz8 IP_SERVER:PORT
+
+List containers in cluster, this command should be used on the manager node:
+docker node ls
+
+Application deploy, in "manager node":
+docker stack deploy -c docker-stack-traefik-Proxy-DNS-Load-Balancer.yml edge-app
+
+
+Testing request time, in "Slave Node":
+time curl -H Host:whoami.edi.ufpe IP_Server
+
+List Services, in "manager node"::
+docker service ls
+
+View distribution of containers in the Browser:
+http://IP_SERVER:8081
+
+Scaling resources:
+docker service scale edge-app_web=10
+
+
+
+
+#############################################################################################################################################
+Problem in adding other nodes to the cluster.
+
+############## Due to the lack of a floating IP to be associated with the VMs, it was necessary to redirect ports to access the applications. ###########
+
+Redirection of physical machine/controller ports to an application OpenStack that is running on the VM.
+
+IP_Controller: 150.161.121.195
+IP_VM: 192.168.120.4
+
+modprobe iptable_nat
+iptables -t nat -A POSTROUTING -o ens160 -j MASQUERADE
+iptables -t nat -A PREROUTING -d 150.161.121.195 -p tcp --dport 11081 -j DNAT --to 192.168.120.4:2377
+iptables -t nat -A POSTROUTING -d 192.168.120.4 -p tcp --dport 2377 -j SNAT --to 150.161.121.195
+
+
+Every request that arrives at the controller's 150.161.121.195 port 11081 is redirected to the application that is running on the virtual machine 192.168.120.4 on the port 2377
+
+Adding other nodes to the cluster, this command should be used on the slaves nodes:
+docker swarm join --token SWMTKN-1-2e9i47zcni6e6x6t7mofj8rg6cip5ouq2wvqvgjbj2aw4mks3q-1dvmex3fbso3elsr8r5f5hde1 150.161.121.195:11081

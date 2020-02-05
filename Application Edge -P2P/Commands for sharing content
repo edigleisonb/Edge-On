@@ -1,0 +1,20 @@
+
+Can be run using the Docker File
+
+or
+
+We created a Docker image of the P2P content sharing application called edgegleison and made it available on the Docker Hub.
+
+Remembering that the folder being shared is important that it is created as a super user (root).
+
+---- Command on the Cloud Server or whoever wants to make the hash code available for sharing the content. ---- 
+docker run -d -v /home/edigleison/App:/data --name test_1 -p 33335:33333 edigleisonb/edgegleison:1.0
+
+---- Command to see the secret key that was created: ---- 
+docker logs -f test_1
+
+---- Result Example command: ---- 
+ALASHFSRYD7W2AWW7IFSQLZN3BGY3YF2Q
+
+---- Command on the client, and will automatically receive the content that was shared: ---- 
+docker run -d -v /home/ubuntu/test:/data --name app -p 33337:33333 -e RSLSYNC_SECRET=ALASHFSRYD7W2AWW7IFSQLZN3BGY3YF2Q edigleisonb/edgegleison:1.0

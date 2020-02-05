@@ -1,0 +1,24 @@
+############################
+Creating a script to access OpenStack services:
+
+Create file "admin-openrc"
+
+export OS_PROJECT_DOMAIN_NAME=default
+export OS_USER_DOMAIN_NAME=default
+export OS_PROJECT_NAME=admin
+export OS_USERNAME=admin
+export OS_PASSWORD=devstack
+export OS_AUTH_URL=http://controller:35357/v3
+export OS_IDENTITY_API_VERSION=3
+export OS_IMAGE_API_VERSION=2
+
+#################################################################
+
+Website teaching how to create a custom Ubuntu Image:
+http://juvenasti.tumblr.com/post/117035105052/criando-uma-imagem-boot%C3%A1vel-para-o-openstack
+
+Flavor creation that will give the size of your machine:
+openstack --os-region-name=RegionOne flavor create --id 55 --ram 1024 --disk 10 --vcpus 1 m1.edi
+
+Releasing SSH and ICMP for VM:
+https://docs.openstack.org/horizon/latest/user/configure-access-and-security-for-instances.html

@@ -1,0 +1,106 @@
+Step by step how to create docker-bridge topology
+
+On the machine running Mininet-WiFi
+
+---- Stop network manager: ---- 
+service network-manager stop
+
+---- Run the mininet code: ---- 
+./sumo-experimental.py
+
+---- Start network manager: ---- 
+service network-manager start
+
+---- Creating Docker Network: ---- 
+docker network create -d bridge network_name
+
+---- Create container on a given network: ---- 
+docker run --net=network_name -t -i --name name_container ubuntu /bin/bash
+
+---- Changing the default container network for another: ---- 
+docker network connect network_name name_container
+
+docker run -d --name name_container ubuntu /bin/bash -c "while true; do sleep 3600; done"
+docker inspect --format '{{.NetworkSettings.IPAddress}}' name_container
+
+docker run -d --name name_container2 ubuntu /bin/bash -c "while true; do sleep 3600; done"
+docker inspect --format '{{.NetworkSettings.IPAddress}}' name_container2
+
+---- Accessing container ---- 
+docker exec -it name_container bash
+
+---- Installing Ping and Net-tools in containers: ---- 
+apt-get update
+apt-get install net-tools iputils-ping
+
+_____________________________________________________________________
+Connect veth pair with docker0 and ovs bridge car'x'SW, set them up
+_____________________________________________________________________
+
+sudo ovs-vsctl add-br car0SW      "(Built on the standard Mininet Wi-Fi)"
+
+ip link set car0SW up
+sudo ip link add veth0 type veth peer name veth1
+
+sudo ovs-vsctl add-port car0SW veth1
+sudo brctl addif docker0 veth0
+
+sudo ip link set veth1 up
+sudo ip link set veth0 up
+
+_____________________________________________________________________
+
+sudo ovs-vsctl add-br car1SW      "(Built on the standard Mininet Wi-Fi)"
+
+ip link set car1SW up
+sudo ip link add veth2 type veth peer name veth3
+
+sudo ovs-vsctl add-port car1SW veth3
+sudo brctl addif br-eb921158e959 veth2
+
+sudo ip link set veth3 up
+sudo ip link set veth2 up
+
+_____________________________________________________________________
+sudo ovs-vsctl add-br car2SW      "(Built on the standard Mininet Wi-Fi)"
+
+ip link set car2SW up
+sudo ip link add veth4 type veth peer name veth5
+
+sudo ovs-vsctl add-port car2SW veth5
+sudo brctl addif br-c666a599fea6 veth4
+
+sudo ip link set veth5 up
+sudo ip link set veth4 up
+
+_________________________________________________________
+
+_________________________________________________________
+GRE tunnel between Bridges
+_________________________________________________________
+
+sudo ovs-vsctl add-port car0SW gre0 -- set interface gre0 type=gre options:remote_ip=10.0.0.202
+
+sudo ovs-vsctl add-port car1SW gre1 -- set interface gre1 type=gre options:remote_ip=10.0.0.201
+
+______________________________________________________________________________________________________________________________________________________
+
+Once the cars are connected, we can share content between vehicles.
+
+We created a Docker image of the P2P content sharing application called edgegleison and made it available on the Docker Hub.
+
+Remembering that the folder being shared is important that it is created as a super user (root).
+
+---- Command on the Cloud Server or whoever wants to make the hash code available for sharing the content. ---- 
+docker run --net=network_name1 --ipaddress=10.0.0.220/24 -d -v /home/edigleison/car2:/data --name name_container1 -p 33333:33333 edigleisonb/edgegleison:1.0
+
+---- Command to see the secret key that was created: ---- 
+docker logs -f name_container1
+
+---- Result Example command: ---- 
+AVMF4ZWAGDNILKDJRYZXEZN37UZ3LUK3C
+
+---- Command on the client, and will automatically receive the content that was shared: ---- 
+docker run --net=network_name2 --ipaddress=10.0.0.221/24 -d -v /home/edigleison/car3:/data --name name_container2 -p 33336:33333 -e RSLSYNC_SECRET=AVMF4ZWAGDNILKDJRYZXEZN37UZ3LUK3C edigleisonb/edgegleison:1.0
+
+________________________________________________________________________________________________________________________________________________________
