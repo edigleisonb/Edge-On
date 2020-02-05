@@ -101,6 +101,6 @@ docker logs -f name_container1
 AVMF4ZWAGDNILKDJRYZXEZN37UZ3LUK3C
 
 ---- Command on the client, and will automatically receive the content that was shared: ---- 
-docker run --net=network_name2 --ipaddress=10.0.0.221/24 -d -v /home/edigleison/car3:/data --name name_container2 -p 33336:33333 -e RSLSYNC_SECRET=AVMF4ZWAGDNILKDJRYZXEZN37UZ3LUK3C edigleisonb/edgegleison:1.0
+docker run --net=network_name2 --ipaddress=10.0.0.221/24 -d -v /home/edi/car3:/data --name name_container2 -p 33336:33333 -e RSLSYNC_SECRET=AVMF4ZWAGDNILKDJRYZXEZN37UZ3LUK3C edigleisonb/edgegleison:1.0
 
 ________________________________________________________________________________________________________________________________________________________
