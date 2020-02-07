@@ -12,7 +12,7 @@ CentOS/RHEL 7, as well as Debian and OpenSUSE.
 [DevStack](https://github.com/openstack/devstack) is a series of extensible scripts used to quickly bring up a complete OpenStack environment based on the latest versions of everything from git master. It is used interactively as a development environment and as the basis for much of 
 the OpenStack project’s functional testing.
 
-Installation step by step: [DevStack-Ocata](https://github.com/edigleisonb/Edge-On/blob/master/OpenStack/OpenStack%20installation%20tutorial%20via%20DevStack).
+Installation and Configuration step by step: [DevStack-Ocata](https://github.com/edigleisonb/Edge-On/blob/master/OpenStack/OpenStack%20installation%20tutorial%20via%20DevStack).
 
 
 ### 3- Install Mininet-WiFi
@@ -45,9 +45,13 @@ and finds out which components are responsible for handling them.
 
 We used an official image from Traefik ([Docker Hub](https://hub.docker.com/_/traefik)).
 
+Installation and Configuration step by step: [Traefik](https://github.com/edigleisonb/Edge-On/tree/master/Traefik)
+
 ### 7- Install BTSync
 #### Version: Stable
 
 [BTSync](https://www.resilio.com/) Connecting Massive Data Flows, Scalable and Customized Data Transfer & Synchronization Solutions.
 
 To create our P2P application, we use a minimal Docker image based on [Alpine](https://hub.docker.com/_/alpine) Linux with a complete package index and only 5 MB in size!
+
+Installation and Configuration step by step: [BTSync](https://github.com/edigleisonb/Edge-On/tree/master/Application%20Edge%20-P2P)
