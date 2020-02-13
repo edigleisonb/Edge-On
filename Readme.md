@@ -9,7 +9,7 @@ CentOS/RHEL 7, as well as Debian and OpenSUSE.
 ### 2- Install OpenStack with Tacker Service (NFV)
 #### Version: Ocata
 
-[DevStack](https://github.com/openstack/devstack) is a series of extensible scripts used to quickly bring up a complete OpenStack environment based on the latest versions of everything from git master. It is used interactively as a development environment and as the basis for much of 
+[DevStack](https://github.com/openstack/devstack) is a group of extensible scripts used to quickly bring up a complete OpenStack environment based on the latest versions of everything from git master. It is used interactively as a development environment and as the basis for much of 
 the OpenStack project’s functional testing.
 
 Installation and Configuration step by step: [DevStack-Ocata](https://github.com/edigleisonb/Edge-On/blob/master/OpenStack/OpenStack%20installation%20tutorial%20via%20DevStack).
@@ -19,7 +19,7 @@ Installation and Configuration step by step: [DevStack-Ocata](https://github.com
 #### Version: 2.2.2d1
 #### Open vSwitch 2.5.5
 [Mininet-WiFi](https://github.com/intrig-unicamp/mininet-wifi) is an open source platform to emulate wireless OpenFlow/SDN scenarios allowing high-fidelity experiments that replicate real networking environments. Mininet-WiFi augments the well-known Mininet emulat
-or with virtual wireless stations and access points while keeping the original SDN capabilities and the lightweight virtualization software architecture.
+or with virtual wireless stations and access points while keeping the main SDN capabilities and the lightweight virtualization software architecture.
 
 We use the example of [sumo-experimental.py](https://github.com/edigleisonb/Edge-On/blob/master/Mininet%20Wi-Fi/sumo-experimental.py), redirecting the connection to an external controller.
 
@@ -27,7 +27,7 @@ We use the example of [sumo-experimental.py](https://github.com/edigleisonb/Edge
 ### 4- Install Ryu
 #### Version: 4.21
 #### Open Flow 1.3
-[Ryu](https://osrg.github.io/ryu/) is a component-based software defined networking framework. Ryu provides software components with well defined API that make it easy for developers to create new network management and control applications. 
+[Ryu](https://osrg.github.io/ryu/) is a component-based software-defined networking framework. Ryu provides software components with well-defined API that make it easy for developers to create new network management and control applications. 
 Ryu supports various protocols for managing network devices, such as OpenFlow, Netconf, OF-config, etc. About OpenFlow, Ryu supports fully 1.0, 1.2, 1.3, 1.4, 1.5 and Nicira Extensions. All of the code is freely available under the Apache 2.0 license.
 
 Ryu was the controller used to receive vehicle connections.
